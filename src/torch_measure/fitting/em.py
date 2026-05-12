@@ -16,6 +16,7 @@ import numpy as np
 import torch
 
 from torch_measure.fitting._losses import bernoulli_nll
+from torch_measure.models._predictor import predict_dense
 
 
 def _pivot_long_to_matrix(
@@ -128,7 +129,7 @@ def em_fit(
                 with torch.no_grad():
                     model.ability.fill_(theta_nodes[q].item())
 
-                probs = model.predict()
+                probs = predict_dense(model)
                 masked_probs = probs[mask].clamp(1e-7, 1 - 1e-7)
                 nll = loss_fn(masked_probs, response_matrix[mask].float())
                 total_loss = total_loss + weights[q] * nll
@@ -162,7 +163,7 @@ def em_fit(
 
     for _ in iterator2:
         optimizer_ability.zero_grad()
-        probs = model.predict()
+        probs = predict_dense(model)
         masked_probs = probs[mask].clamp(1e-7, 1 - 1e-7)
         loss = loss_fn(masked_probs, response_matrix[mask].float())
 

@@ -4,6 +4,7 @@
 
 from torch_measure.models._base import IRTModel
 from torch_measure.models._network_base import NetworkModel
+from torch_measure.models._predictor import Predictor, cartesian_query, predict_dense
 from torch_measure.models.amortized import AmortizedIRT
 from torch_measure.models.beta_rasch import BetaRasch
 from torch_measure.models.beta_twopl import BetaTwoPL
@@ -20,8 +21,11 @@ from torch_measure.models.threepl import ThreePL
 from torch_measure.models.twopl import TwoPL
 
 __all__ = [
+    "Predictor",
     "IRTModel",
     "NetworkModel",
+    "cartesian_query",
+    "predict_dense",
     "IsingModel",
     "GaussianGraphicalModel",
     "BradleyTerry",
